@@ -14,22 +14,22 @@ export const addTodo = (text: string) => ({
   payload: { text },
 });
 
-export const toggleTodo = (id: string) => ({
+export const toggleTodo = (id: number) => ({
   type: TOGGLE_TODO,
   payload: { id },
 });
 
-export const removeTodo = (id: string) => ({
+export const removeTodo = (id: number) => ({
   type: REMOVE_TODO,
   payload: { id },
 });
 
-export const markCompleted = (id: string) => ({
+export const markCompleted = (id: number) => ({
   type: MARK_COMPLETED,
   payload: { id },
 });
 
-export const markIncomplete = (id: string) => ({
+export const markIncomplete = (id: number) => ({
   type: MARK_INCOMPLETE,
   payload: { id },
 });
@@ -43,7 +43,7 @@ export const markAllCompleted = () => ({
   type: MARK_ALL_COMPLETED,
 });
 
-export const updateSearchTerm = (search: string) => ({
+export const updateSearchTerm = (searchTerm: string) => ({
   type: UPDATE_SEARCH_TERM,
-  payload: { search },
+  payload: { searchTerm },
 });

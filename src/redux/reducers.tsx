@@ -9,17 +9,47 @@ import {
   UPDATE_SEARCH_TERM,
 } from "./actionTypes";
 
-const initialState = {
-  todos: [],
+export interface ITodoState {
+  todos: { text: string; completed: boolean }[];
+  filter: string;
+  searchTerm: string;
+}
+
+type TodoAction =
+  | { type: typeof ADD_TODO; payload: { text: string } }
+  | { type: typeof TOGGLE_TODO; payload: { id: number } }
+  | { type: typeof REMOVE_TODO; payload: { id: number } }
+  | { type: typeof MARK_COMPLETED; payload: { id: number } }
+  | { type: typeof MARK_INCOMPLETE; payload: { id: number } }
+  | { type: typeof FILTER_TODOS; payload: { filter: string } }
+  | { type: typeof UPDATE_SEARCH_TERM; payload: { searchTerm: string } }
+  | { type: typeof MARK_ALL_COMPLETED };
+
+const dataExample = [
+  {
+    text: "Complete Homework Assignment",
+    completed: false,
+  },
+  {
+    text: "Exercise Routine",
+    completed: true,
+  },
+  {
+    text: "Grocery Shopping",
+    completed: false,
+  },
+];
+const initialState: ITodoState = {
+  todos: dataExample,
   filter: "ALL",
   searchTerm: "",
 };
 
-const todoReducer = (state = initialState, action) => {
+const todoReducer = (state: ITodoState = initialState, action: TodoAction): ITodoState => {
   switch (action.type) {
     case ADD_TODO:
       return {
-        todos: [...state.todos, { text: action.payload, completed: false }],
+        todos: [...state.todos, { text: action.payload.text, completed: false }],
         filter: state.filter,
         searchTerm: state.searchTerm,
       };
@@ -35,7 +65,7 @@ const todoReducer = (state = initialState, action) => {
 
     case REMOVE_TODO:
       return {
-        todos: state.todos.filter((todo, index) => index !== action.payload.id),
+        todos: state.todos.filter((_, index) => index !== action.payload.id),
         filter: state.filter,
         searchTerm: state.searchTerm,
       };
@@ -76,7 +106,7 @@ const todoReducer = (state = initialState, action) => {
       return {
         todos: state.todos.map((todo) => ({ ...todo, completed: true })),
         filter: state.filter,
-        searchTerm: action.payload.searchTerm,
+        searchTerm: state.searchTerm,
       };
 
     default:

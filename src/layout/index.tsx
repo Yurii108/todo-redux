@@ -1,43 +1,34 @@
 import React from "react";
-import { Layout, Flex } from "antd";
+import { Layout, ConfigProvider } from "antd";
+import { Todo } from "../components/Todo";
 
-const { Header, Footer, Content } = Layout;
+const { Content } = Layout;
+
+const theme = {
+  components: {
+    Button: {},
+  },
+};
 
 export const LayoutPage: React.FC = () => (
-  <Flex gap="middle" wrap="wrap">
+  <ConfigProvider theme={theme}>
     <Layout style={layoutStyle}>
-      <Header style={headerStyle}>Header</Header>
-      <Content style={contentStyle}>Content</Content>
-      <Footer style={footerStyle}>Footer</Footer>
+      <Content style={contentStyle}>
+        <Todo />
+      </Content>
     </Layout>
-  </Flex>
+  </ConfigProvider>
 );
 
-const headerStyle: React.CSSProperties = {
-  textAlign: "center",
-  color: "#fff",
-  height: 64,
-  paddingInline: 48,
-  lineHeight: "64px",
-  backgroundColor: "#4096ff",
-};
-
 const contentStyle: React.CSSProperties = {
-  textAlign: "center",
   minHeight: 120,
-  lineHeight: "120px",
-  color: "#fff",
-  backgroundColor: "#0958d9",
-};
-
-const footerStyle: React.CSSProperties = {
-  textAlign: "center",
-  color: "#fff",
-  backgroundColor: "#4096ff",
+  color: "#ffffff",
+  backgroundImage: "linear-gradient(to bottom right, #36d1dc, #5b86e5)",
+  padding: "20px",
 };
 
 const layoutStyle = {
-  overflow: "hidden",
+  overflow: "auto",
   width: "100%",
-  height: "100vh",
+  minHeight: "100vh",
 };
