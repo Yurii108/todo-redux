@@ -20,23 +20,35 @@ export const TodoItem: React.FC<TodoItemProps> = ({ todo, index }) => {
         <span>{index + 1}.</span>
         <p
           className={`${todo.completed ? "completed" : ""}`}
-          onClick={() => dispatch(toggleTodo(index))}
+          onClick={() => dispatch(toggleTodo(todo.id))}
         >
           {todo.text}
         </p>
       </div>
       <div className="buttons">
-        <Button ghost danger type="link" size="small" onClick={() => dispatch(removeTodo(index))}>
+        <Button danger type="link" size="small" onClick={() => dispatch(removeTodo(todo.id))}>
           Remove
         </Button>
         &nbsp;
         {!todo.completed && (
-          <Button ghost type="primary" size="small" onClick={() => dispatch(markCompleted(index))}>
+          <Button
+            ghost
+            type="primary"
+            size="small"
+            onClick={() => {
+              dispatch(markCompleted(todo.id));
+            }}
+          >
             Completed
           </Button>
         )}
         {todo.completed && (
-          <Button ghost type="primary" size="small" onClick={() => dispatch(markIncomplete(index))}>
+          <Button
+            ghost
+            type="primary"
+            size="small"
+            onClick={() => dispatch(markIncomplete(todo.id))}
+          >
             Incomplete
           </Button>
         )}

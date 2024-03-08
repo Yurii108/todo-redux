@@ -15,7 +15,7 @@ const options = [
 export const FilterByRadio: React.FC = () => {
   const dispatch = useDispatch();
 
-  const [valueRadio, setValueRadio] = useState("All");
+  const [valueRadio, setValueRadio] = useState("ALL");
 
   const onChangeRadio = ({ target: { value } }: RadioChangeEvent) => {
     dispatch(filterTodos(value));

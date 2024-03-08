@@ -10,13 +10,13 @@ import {
 } from "./actionTypes";
 
 export interface ITodoState {
-  todos: { text: string; completed: boolean }[];
+  todos: { id: number; text: string; completed: boolean }[];
   filter: string;
   searchTerm: string;
 }
 
 type TodoAction =
-  | { type: typeof ADD_TODO; payload: { text: string } }
+  | { type: typeof ADD_TODO; payload: { text: string; id: number } }
   | { type: typeof TOGGLE_TODO; payload: { id: number } }
   | { type: typeof REMOVE_TODO; payload: { id: number } }
   | { type: typeof MARK_COMPLETED; payload: { id: number } }
@@ -27,18 +27,22 @@ type TodoAction =
 
 const dataExample = [
   {
+    id: 12,
     text: "Complete Homework Assignment",
     completed: false,
   },
   {
+    id: 23,
     text: "Exercise Routine",
     completed: true,
   },
   {
+    id: 34,
     text: "Grocery Shopping",
     completed: false,
   },
 ];
+
 const initialState: ITodoState = {
   todos: dataExample,
   filter: "ALL",
@@ -49,15 +53,18 @@ const todoReducer = (state: ITodoState = initialState, action: TodoAction): ITod
   switch (action.type) {
     case ADD_TODO:
       return {
-        todos: [...state.todos, { text: action.payload.text, completed: false }],
+        todos: [
+          ...state.todos,
+          { id: action.payload.id, text: action.payload.text, completed: false },
+        ],
         filter: state.filter,
         searchTerm: state.searchTerm,
       };
 
     case TOGGLE_TODO:
       return {
-        todos: state.todos.map((todo, index) =>
-          index === action.payload.id ? { ...todo, completed: !todo.completed } : todo
+        todos: state.todos.map((todo) =>
+          todo.id === action.payload.id ? { ...todo, completed: !todo.completed } : todo
         ),
         filter: state.filter,
         searchTerm: state.searchTerm,
@@ -65,15 +72,15 @@ const todoReducer = (state: ITodoState = initialState, action: TodoAction): ITod
 
     case REMOVE_TODO:
       return {
-        todos: state.todos.filter((_, index) => index !== action.payload.id),
+        todos: state.todos.filter((todo) => todo.id !== action.payload.id),
         filter: state.filter,
         searchTerm: state.searchTerm,
       };
 
     case MARK_COMPLETED:
       return {
-        todos: state.todos.map((todo, index) =>
-          index === action.payload.id ? { ...todo, completed: true } : todo
+        todos: state.todos.map((todo) =>
+          todo.id === action.payload.id ? { ...todo, completed: true } : todo
         ),
         filter: state.filter,
         searchTerm: state.searchTerm,
@@ -81,8 +88,8 @@ const todoReducer = (state: ITodoState = initialState, action: TodoAction): ITod
 
     case MARK_INCOMPLETE:
       return {
-        todos: state.todos.map((todo, index) =>
-          index === action.payload.id ? { ...todo, completed: false } : todo
+        todos: state.todos.map((todo) =>
+          todo.id === action.payload.id ? { ...todo, completed: false } : todo
         ),
         filter: state.filter,
         searchTerm: state.searchTerm,

@@ -16,7 +16,7 @@ export const Todo: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState("");
 
   const handleAddToDo = (text: string) => {
-    dispatch(addTodo(text));
+    dispatch(addTodo(text, Date.now()));
   };
 
   const handleAddTodoClick = () => {

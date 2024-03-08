@@ -23,7 +23,6 @@ export const LayoutPage: React.FC = () => (
 const contentStyle: React.CSSProperties = {
   minHeight: 120,
   color: "#ffffff",
-  backgroundImage: "linear-gradient(to bottom right, #36d1dc, #5b86e5)",
   padding: "20px",
 };
 
@@ -31,4 +30,5 @@ const layoutStyle = {
   overflow: "auto",
   width: "100%",
   minHeight: "100vh",
+  backgroundImage: "linear-gradient(to bottom right, #36d1dc, #5b86e5)",
 };

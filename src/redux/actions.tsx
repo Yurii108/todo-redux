@@ -9,9 +9,9 @@ import {
   UPDATE_SEARCH_TERM,
 } from "./actionTypes.tsx";
 
-export const addTodo = (text: string) => ({
+export const addTodo = (text: string, id: number) => ({
   type: ADD_TODO,
-  payload: { text },
+  payload: { text, id },
 });
 
 export const toggleTodo = (id: number) => ({
